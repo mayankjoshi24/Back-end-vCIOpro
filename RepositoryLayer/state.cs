@@ -14,10 +14,18 @@ namespace RepositoryLayer
     
     public partial class state
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public state()
+        {
+            this.Locations = new HashSet<Location>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public int countryid { get; set; }
     
         public virtual Country Country { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Locations { get; set; }
     }
 }

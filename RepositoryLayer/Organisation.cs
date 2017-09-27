@@ -14,6 +14,13 @@ namespace RepositoryLayer
     
     public partial class Organisation
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Organisation()
+        {
+            this.Locations = new HashSet<Location>();
+            this.Contacts = new HashSet<Contact>();
+        }
+    
         public int OrgId { get; set; }
         public string OrgName { get; set; }
         public string ShortName { get; set; }
@@ -31,5 +38,10 @@ namespace RepositoryLayer
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Locations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Contact> Contacts { get; set; }
     }
 }

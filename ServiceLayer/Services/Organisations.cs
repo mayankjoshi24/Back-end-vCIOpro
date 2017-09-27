@@ -30,19 +30,7 @@ namespace ServiceLayer.Services
             var data = unitOfWork.OrganisationRepository.GetByID(id);
             return data;
         }
-        //public List<Organisation> GetAllOrganisations(OrganisationsViewModel model)
-        //{
-        //    var data = unitOfWork.OrganisationRepository.Get().ToList();
-
-        //    return data;
-        //}
-
-        //public List<Organisation> GetAllOrganisationbyID(int OrganisationId,OrganisationsViewModel model)
-        //{
-        //     var data = unitOfWork.OrganisationRepository.GetByID(model.OrganisationId);
-
-        //    return data;
-        //}
+       
         public bool AddOrg(OrganisationsViewModel model)
         {
             vCIOPRoEntities context = new vCIOPRoEntities();
@@ -88,10 +76,15 @@ namespace ServiceLayer.Services
             {
                 using (var scope = new TransactionScope())
                 {
-                    var organisationModel = unitOfWork.OrganisationRepository.GetByID(model.OrganisationId);
+                    var organisationModel = unitOfWork.OrganisationRepository.GetByID(model.OrgId);
                     if (organisationModel != null)
                     {
+                        organisationModel.OrgId = model.OrgId;
                         organisationModel.OrgName = model.OrgName;
+                        organisationModel.FirstName = model.FirstName;
+                        organisationModel.ShortName = model.ShortName;
+                        organisationModel.Email = model.Email;
+                        organisationModel.Phone = model.Phone;
                         unitOfWork.OrganisationRepository.Update(organisationModel);
                         unitOfWork.Save();
                         scope.Complete();

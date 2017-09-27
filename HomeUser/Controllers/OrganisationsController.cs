@@ -32,9 +32,9 @@ namespace HomeUser.Controllers
         [Route("api/Organisations/GetAllOrg")]
         public IHttpActionResult GetAllOrg()
         {
-            var a = _tenantDataManager.GetAllOrganisations();
+            var organisations = _tenantDataManager.GetAllOrganisations();
 
-            return Ok(a);
+            return Ok(organisations);
         }
 
         [AllowAnonymous]
@@ -57,17 +57,12 @@ namespace HomeUser.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            //var user = new ApplicationUser() { UserName = model.EmailId, Email = model.EmailId };
-
-            //IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             try
             {
-                // if (result.Succeeded == true)
-                //
+                
 
-                bool userAdded = _tenantDataManager.AddOrg(model);
-                // }
+                bool orgAdded = _tenantDataManager.AddOrg(model);
+                return Ok("Ok");
             }
 
             catch (Exception EX)
@@ -75,7 +70,7 @@ namespace HomeUser.Controllers
                 throw EX;
             }
 
-            return Ok();
+            return BadRequest(ModelState);
         }
         //put
         [Route("api/Organisations/EditOrg")]
@@ -92,15 +87,16 @@ namespace HomeUser.Controllers
                 // if (result.Succeeded == true)
                 //
 
-                bool userAdded = _tenantDataManager.EditOrg(model);
+                bool orgedited = _tenantDataManager.EditOrg(model);
+                return Ok("Ok");
                 // }
             }
             catch (Exception EX)
             {
                 throw EX;
             }
+            return BadRequest(ModelState);
 
-            return Ok();
         }
         [Route("api/Organisations/DeleteOrg")]
         public IHttpActionResult DeleteOrg(int OrganisationId)
@@ -116,7 +112,7 @@ namespace HomeUser.Controllers
                 // if (result.Succeeded == true)
                 //
 
-                bool userdeleted = _tenantDataManager.DeleteOrg(OrganisationId);
+                bool orgdeleted = _tenantDataManager.DeleteOrg(OrganisationId);
                 // }
             }
             catch (Exception EX)
